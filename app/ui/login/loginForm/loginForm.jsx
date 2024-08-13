@@ -1,19 +1,15 @@
 'use client'
 import { authenticate } from '@/app/lib/actions'
 import styles from './loginForm.module.css'
-import { useState } from 'react'
+import { useFormState } from 'react-dom'
 
 const LoginForm = () => {
 
-    const [err, setErr] = useState()
-    
-    const handleLogin = async (formData) => {
-        const data = await authenticate(formData)
-        data.error && setErr(data.error)
-    }
+    const [state, formAction] = useFormstate(authenticate, undefined)
+
 
   return (
-    <form action={handleLogin} className={styles.form}>
+    <form action={formAction} className={styles.form}>
 
     <h1>Login</h1>
 
@@ -23,7 +19,7 @@ const LoginForm = () => {
         Login
       </button>
 
-      {err && err}
+      {state && state}
 
     </form>
   )
