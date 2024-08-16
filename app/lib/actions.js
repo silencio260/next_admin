@@ -183,15 +183,17 @@ export const updateProduct = async (formData) => {
   };
 
 
-export const authenticate = async (prevState, formData) => {
+  export const authenticate = async (prevState, formData) => {
+    const { username, password } = Object.fromEntries(formData);
 
-  const {username, password} = Object.fromEntries(formData)
+    console.log(username, password)
 
-  try {
-    await signIn('credentials', {username, password})
-    // redirect("/dashboard");
-  } catch (error) {
-    return "Wrong Credentials!"
-  }
-
+    try {
+      await signIn("credentials", { username, password });
+    } catch (err) {
+      if (err.message.includes("CredentialsSignin")) {
+        return "Wrong Credentials";
+      }
+      throw err;
+    }
  }

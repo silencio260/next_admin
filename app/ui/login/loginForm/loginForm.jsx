@@ -5,8 +5,10 @@ import { useFormState } from 'react-dom'
 
 const LoginForm = () => {
 
-    const [state, formAction] = useFormstate(authenticate, undefined)
+    const [state, formAction] = useFormState(authenticate, undefined)
 
+    // console.log(formAction)
+    // console.log(state)
 
   return (
     <form action={formAction} className={styles.form}>
